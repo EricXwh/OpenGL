@@ -1,6 +1,7 @@
 #include <glad/glad.h>   // 必须在GLFW之前引入
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <Tool/shader.h>
 
 // 回调函数声明
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -10,42 +11,6 @@ void processInput(GLFWwindow* window);
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 
-// 顶点着色器源码（不带颜色）
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos, 1.0);\n"
-"}\0";
-
-// 顶点着色器源码（带颜色）
-const char* vertexShaderWithColorSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"layout (location = 1) in vec3 aColor;\n"
-"out vec3 vertexColor;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos, 1.0);\n"
-"   vertexColor = aColor;\n"
-"}\0";
-
-// 片段着色器源码（使用uniform颜色）
-const char* fragmentShaderUniformColorSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"uniform vec4 uniformColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = uniformColor;\n"
-"}\n\0";
-
-// 片段着色器源码（使用顶点颜色）
-const char* fragmentShaderVertexColorSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"in vec3 vertexColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(vertexColor, 1.0f);\n"
-"}\n\0";
 
 int main()
 {
@@ -73,43 +38,8 @@ int main()
         return -1;
     }
 
-    // 编译顶点着色器（不带颜色）
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    // 编译顶点着色器（带颜色）
-    unsigned int vertexShaderWithColor = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShaderWithColor, 1, &vertexShaderWithColorSource, NULL);
-    glCompileShader(vertexShaderWithColor);
-
-    // 编译片段着色器（使用uniform颜色）
-    unsigned int fragmentShaderUniformColor = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShaderUniformColor, 1, &fragmentShaderUniformColorSource, NULL);
-    glCompileShader(fragmentShaderUniformColor);
-
-    // 编译片段着色器（使用顶点颜色）
-    unsigned int fragmentShaderVertexColor = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShaderVertexColor, 1, &fragmentShaderVertexColorSource, NULL);
-    glCompileShader(fragmentShaderVertexColor);
-
-    // 创建并链接着色器程序1（使用uniform颜色）
-    unsigned int shaderProgramUniform = glCreateProgram();
-    glAttachShader(shaderProgramUniform, vertexShader);
-    glAttachShader(shaderProgramUniform, fragmentShaderUniformColor);
-    glLinkProgram(shaderProgramUniform);
-
-    // 创建并链接着色器程序2（使用顶点颜色）
-    unsigned int shaderProgramVertex = glCreateProgram();
-    glAttachShader(shaderProgramVertex, vertexShaderWithColor);
-    glAttachShader(shaderProgramVertex, fragmentShaderVertexColor);
-    glLinkProgram(shaderProgramVertex);
-
-    // 删除着色器对象，因为它们已经被链接到程序中了
-    glDeleteShader(vertexShader);
-    glDeleteShader(vertexShaderWithColor);
-    glDeleteShader(fragmentShaderUniformColor);
-    glDeleteShader(fragmentShaderVertexColor);
+    Shader shader1("./src/02_Shader/Shader/vertex.glsl", "./src/02_Shader/Shader/fragmentUniform.glsl");
+    Shader shader2("./src/02_Shader/Shader/vertexWithColor.glsl", "./src/02_Shader/Shader/fragment.glsl");
 
     // 定义第一个三角形的顶点数据（仅位置）
     float firstTriangle[] = {
@@ -167,23 +97,22 @@ int main()
         // 清除颜色缓冲区
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // 设置清屏颜色
         glClear(GL_COLOR_BUFFER_BIT);
-
-        // 绘制第一个三角形（使用uniform颜色）
-        glUseProgram(shaderProgramUniform); // 使用第一个着色器程序
+        shader1.use();
 
         // 动态计算绿色分量的值
         float timeValue = glfwGetTime();
         float greenValue = sin(timeValue) / 2.0f + 0.5f;
 
-        // 获取uniform变量的位置并设置其值
-        int uniformColorLocation = glGetUniformLocation(shaderProgramUniform, "uniformColor");
-        glUniform4f(uniformColorLocation, 0.0f, greenValue, 0.0f, 1.0f); // 设置颜色为动态绿色
+        glUniform4f(glGetUniformLocation(shader1.ID, "uniformColor"), 0.0f, greenValue, 0.0f, 1.0f);
 
         glBindVertexArray(VAOs[0]); // 绑定第一个VAO
         glDrawArrays(GL_TRIANGLES, 0, 3); // 绘制三角形
 
         // 绘制第二个三角形（使用顶点颜色）
-        glUseProgram(shaderProgramVertex); // 使用第二个着色器程序
+        shader2.use();
+        float xoffset = sin(timeValue);
+        float yoffset = cos(timeValue);
+        glUniform2f(glGetUniformLocation(shader2.ID, "xyoffset"), xoffset, yoffset);
         glBindVertexArray(VAOs[1]);       // 绑定第二个VAO
         glDrawArrays(GL_TRIANGLES, 0, 3); // 绘制三角形
 

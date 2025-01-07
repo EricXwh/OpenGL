@@ -25,4 +25,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Tool\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\02_Shader\Shader\vertex.glsl" />
+    <None Include="src\02_Shader\Shader\fragmentUniform.glsl" />
+    <None Include="src\02_Shader\Shader\fragment.glsl" />
+    <None Include="src\02_Shader\Shader\vertexWithColor.glsl" />
+  </ItemGroup>
 </Project>

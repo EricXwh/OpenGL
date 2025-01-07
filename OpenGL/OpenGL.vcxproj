@@ -23,6 +23,15 @@
     <ClCompile Include="src\01_Hello_Triangle\Application.cpp" />
     <ClCompile Include="src\02_Shader\Application.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Tool\shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\02_Shader\Shader\fragment.glsl" />
+    <None Include="src\02_Shader\Shader\fragmentUniform.glsl" />
+    <None Include="src\02_Shader\Shader\vertex.glsl" />
+    <None Include="src\02_Shader\Shader\vertexWithColor.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
