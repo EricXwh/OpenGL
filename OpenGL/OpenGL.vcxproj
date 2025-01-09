@@ -22,6 +22,7 @@
     <ClCompile Include="D:\OpenGL\glad.c" />
     <ClCompile Include="src\01_Hello_Triangle\Application.cpp" />
     <ClCompile Include="src\02_Shader\Application.cpp" />
+    <ClCompile Include="src\03_Texture\Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\shader.h" />
@@ -31,6 +32,8 @@
     <None Include="src\02_Shader\Shader\fragmentUniform.glsl" />
     <None Include="src\02_Shader\Shader\vertex.glsl" />
     <None Include="src\02_Shader\Shader\vertexWithColor.glsl" />
+    <None Include="src\03_Texture\Shader\fragment.glsl" />
+    <None Include="src\03_Texture\Shader\vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

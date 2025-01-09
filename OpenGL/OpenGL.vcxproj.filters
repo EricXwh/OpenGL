@@ -24,6 +24,9 @@
     <ClCompile Include="src\02_Shader\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\03_Texture\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\shader.h">
@@ -35,5 +38,7 @@
     <None Include="src\02_Shader\Shader\fragmentUniform.glsl" />
     <None Include="src\02_Shader\Shader\fragment.glsl" />
     <None Include="src\02_Shader\Shader\vertexWithColor.glsl" />
+    <None Include="src\03_Texture\Shader\fragment.glsl" />
+    <None Include="src\03_Texture\Shader\vertex.glsl" />
   </ItemGroup>
 </Project>
