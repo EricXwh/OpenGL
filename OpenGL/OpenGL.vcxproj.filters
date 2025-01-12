@@ -33,9 +33,15 @@
     <ClCompile Include="src\05_Coordinate\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\06_Camera\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tool\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,5 +56,7 @@
     <None Include="src\04_Transform\Shader\vertex.glsl" />
     <None Include="src\05_Coordinate\Shader\fragment.glsl" />
     <None Include="src\05_Coordinate\Shader\vertex.glsl" />
+    <None Include="src\06_Camera\Shader\fragment.glsl" />
+    <None Include="src\06_Camera\Shader\vertex.glsl" />
   </ItemGroup>
 </Project>
