@@ -15,25 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\01_Hello_Triangle\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\02_Shader\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\03_Texture\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\04_Transform\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\05_Coordinate\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\06_Camera\Application.cpp">
+    <ClCompile Include="src\08_Lighting\Appication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,17 +31,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\02_Shader\Shader\vertex.glsl" />
-    <None Include="src\02_Shader\Shader\fragmentUniform.glsl" />
-    <None Include="src\02_Shader\Shader\fragment.glsl" />
-    <None Include="src\02_Shader\Shader\vertexWithColor.glsl" />
-    <None Include="src\03_Texture\Shader\fragment.glsl" />
-    <None Include="src\03_Texture\Shader\vertex.glsl" />
-    <None Include="src\04_Transform\Shader\fragment.glsl" />
-    <None Include="src\04_Transform\Shader\vertex.glsl" />
-    <None Include="src\05_Coordinate\Shader\fragment.glsl" />
-    <None Include="src\05_Coordinate\Shader\vertex.glsl" />
-    <None Include="src\06_Camera\Shader\fragment.glsl" />
-    <None Include="src\06_Camera\Shader\vertex.glsl" />
+    <None Include="src\08_Lighting\Shader\fragment.glsl" />
+    <None Include="src\08_Lighting\Shader\lightFragment.glsl" />
+    <None Include="src\08_Lighting\Shader\lightVertex.glsl" />
+    <None Include="src\08_Lighting\Shader\vertex.glsl" />
   </ItemGroup>
 </Project>
