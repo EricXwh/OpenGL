@@ -20,17 +20,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\OpenGL\glad.c" />
-    <ClCompile Include="src\08_Lighting\Appication.cpp" />
+    <ClCompile Include="src\09_Material\Appication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\camera.h" />
     <ClInclude Include="include\Tool\shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\08_Lighting\Shader\fragment.glsl" />
-    <None Include="src\08_Lighting\Shader\lightFragment.glsl" />
-    <None Include="src\08_Lighting\Shader\lightVertex.glsl" />
-    <None Include="src\08_Lighting\Shader\vertex.glsl" />
+    <None Include="src\09_Material\Shader\fragment.glsl" />
+    <None Include="src\09_Material\Shader\lightFragment.glsl" />
+    <None Include="src\09_Material\Shader\lightVertex.glsl" />
+    <None Include="src\09_Material\Shader\vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
