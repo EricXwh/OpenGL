@@ -18,7 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\09_Material\Appication.cpp">
+    <ClCompile Include="src\10_LightingMap\Appication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,11 +29,14 @@
     <ClInclude Include="include\Tool\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Tool\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\09_Material\Shader\fragment.glsl" />
-    <None Include="src\09_Material\Shader\lightFragment.glsl" />
-    <None Include="src\09_Material\Shader\lightVertex.glsl" />
-    <None Include="src\09_Material\Shader\vertex.glsl" />
+    <None Include="src\10_LightingMap\Shader\fragment.glsl" />
+    <None Include="src\10_LightingMap\Shader\lightFragment.glsl" />
+    <None Include="src\10_LightingMap\Shader\lightVertex.glsl" />
+    <None Include="src\10_LightingMap\Shader\vertex.glsl" />
   </ItemGroup>
 </Project>
