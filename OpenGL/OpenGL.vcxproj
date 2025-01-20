@@ -20,18 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\OpenGL\glad.c" />
-    <ClCompile Include="src\10_LightingMap\Appication.cpp" />
+    <ClCompile Include="src\11-12_Multilighting\Appication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\camera.h" />
     <ClInclude Include="include\Tool\shader.h" />
     <ClInclude Include="include\Tool\stb_image.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\10_LightingMap\Shader\fragment.glsl" />
-    <None Include="src\10_LightingMap\Shader\lightFragment.glsl" />
-    <None Include="src\10_LightingMap\Shader\lightVertex.glsl" />
-    <None Include="src\10_LightingMap\Shader\vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

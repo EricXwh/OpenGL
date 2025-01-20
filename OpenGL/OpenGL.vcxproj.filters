@@ -18,7 +18,10 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\10_LightingMap\Appication.cpp">
+    <ClCompile Include="src\11_LightCasters\Appication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\11-12_Multilighting\Appication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,9 +37,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\10_LightingMap\Shader\fragment.glsl" />
-    <None Include="src\10_LightingMap\Shader\lightFragment.glsl" />
-    <None Include="src\10_LightingMap\Shader\lightVertex.glsl" />
-    <None Include="src\10_LightingMap\Shader\vertex.glsl" />
+    <None Include="src\11_LightCasters\Shader\fragment.glsl" />
+    <None Include="src\11_LightCasters\Shader\lightFragment.glsl" />
+    <None Include="src\11_LightCasters\Shader\lightVertex.glsl" />
+    <None Include="src\11_LightCasters\Shader\vertex.glsl" />
   </ItemGroup>
 </Project>
