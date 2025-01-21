@@ -18,10 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\11_LightCasters\Appication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\11-12_Multilighting\Appication.cpp">
+    <ClCompile Include="src\13_Model\mian.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,11 +32,11 @@
     <ClInclude Include="include\Tool\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\11_LightCasters\Shader\fragment.glsl" />
-    <None Include="src\11_LightCasters\Shader\lightFragment.glsl" />
-    <None Include="src\11_LightCasters\Shader\lightVertex.glsl" />
-    <None Include="src\11_LightCasters\Shader\vertex.glsl" />
+    <ClInclude Include="include\Tool\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tool\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
