@@ -18,7 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\13_Model\mian.cpp">
+    <ClCompile Include="src\14-15_StencilTesting\mian.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,5 +38,9 @@
     <ClInclude Include="include\Tool\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\14-15_StencilTesting\Shader\outlineFragment.glsl" />
+    <None Include="src\14-15_StencilTesting\Shader\outlineVertex.glsl" />
   </ItemGroup>
 </Project>

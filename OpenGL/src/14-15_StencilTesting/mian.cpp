@@ -38,6 +38,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -70,9 +71,14 @@ int main()
 
     // 配置全局 OpenGL 状态
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_STENCIL_TEST);
+    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
     // 编译着色器
-    Shader ourShader("./src/13_Model/Shader/vertex.glsl", "./src/13_Model/Shader/fragment.glsl");
+    Shader ourShader("./src/14-15_StencilTesting/Shader/vertex.glsl", "./src/14-15_StencilTesting/Shader/fragment.glsl");
+    Shader shaderSingleColor("./src/14-15_StencilTesting/Shader/outlineVertex.glsl", "./src/14-15_StencilTesting/Shader/outlineFragment.glsl");
 
     // 加载模型
     //Model ourModel("asset/models/Kamisato/Kamisato_en.fbx");
@@ -91,17 +97,22 @@ int main()
 
         // 渲染
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         // don't forget to enable shader before setting uniforms
-        ourShader.use();
-
+        shaderSingleColor.use();
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
+        shaderSingleColor.setMat4("projection", projection);
+        shaderSingleColor.setMat4("view", view);
+        ourShader.use();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-
+        // 1st. render pass, draw objects as normal, writing to the stencil buffer
+        // --------------------------------------------------------------------
+        glStencilFunc(GL_ALWAYS, 1, 0xFF);
+        glStencilMask(0xFF);
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 1.0f)); // translate it down so it's at the center of the scene
@@ -109,7 +120,19 @@ int main()
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
+        // 第二步：绘制轮廓
+        glStencilFunc(GL_NOTEQUAL, 1, 0xFF); // 仅绘制模板值不等于1的部分
+        glStencilMask(0x00); // 禁止写入模板缓冲区
+        glDisable(GL_DEPTH_TEST); // 禁用深度测试，以确保轮廓绘制在最前面
 
+        shaderSingleColor.use();
+        glm::mat4 modelOutline = model;
+        shaderSingleColor.setMat4("model", modelOutline);
+        ourModel.Draw(shaderSingleColor);
+
+        glStencilMask(0xFF);
+        glStencilFunc(GL_ALWAYS, 0, 0xFF);
+        glEnable(GL_DEPTH_TEST); 
         // 交换缓冲区并轮询事件
         glfwSwapBuffers(window);
         glfwPollEvents();
