@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\OpenGL\glad.c" />
-    <ClCompile Include="src\14-15_StencilTesting\mian.cpp" />
+    <ClCompile Include="src\16_Blending\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\camera.h" />
@@ -30,8 +30,7 @@
     <ClInclude Include="include\Tool\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\14-15_StencilTesting\Shader\outlineFragment.glsl" />
-    <None Include="src\14-15_StencilTesting\Shader\outlineVertex.glsl" />
+    <None Include="src\16_Blending\Shader\blendingFragment.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

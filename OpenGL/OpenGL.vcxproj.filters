@@ -18,7 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\14-15_StencilTesting\mian.cpp">
+    <ClCompile Include="src\16_Blending\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,7 +40,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\14-15_StencilTesting\Shader\outlineFragment.glsl" />
-    <None Include="src\14-15_StencilTesting\Shader\outlineVertex.glsl" />
+    <None Include="src\16_Blending\Shader\blendingFragment.glsl" />
   </ItemGroup>
 </Project>
