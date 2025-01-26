@@ -78,6 +78,8 @@ int main()
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_CULL_FACE);
+
 
     // ±àÒë×ÅÉ«Æ÷
     Shader ourShader("./src/16_Blending/Shader/vertex.glsl", "./src/16_Blending/Shader/fragment.glsl");
@@ -91,12 +93,12 @@ int main()
     float planeVertices[] = {
         // positions          // texture Coords 
          5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
-        -5.0f, -0.5f,  5.0f,  0.0f, 0.0f,
         -5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
+        -5.0f, -0.5f,  5.0f,  0.0f, 0.0f,
 
          5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
-        -5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
-         5.0f, -0.5f, -5.0f,  2.0f, 2.0f
+         5.0f, -0.5f, -5.0f,  2.0f, 2.0f,
+        -5.0f, -0.5f, -5.0f,  0.0f, 2.0f
     };
     float transparentVertices[] = {
         // positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
@@ -170,12 +172,22 @@ int main()
         // äÖÈ¾
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        glm::mat4 model = glm::mat4(1.0f);
+        shader.use();
+        shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
+        glBindVertexArray(planeVAO);
+        glBindTexture(GL_TEXTURE_2D, floorTexture);
+        model = glm::mat4(1.0f);
+        shader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // don't forget to enable shader before setting uniforms
         shaderSingleColor.use();
         // view/projection transformations
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
+
         shaderSingleColor.setMat4("projection", projection);
         shaderSingleColor.setMat4("view", view);
         ourShader.use();
@@ -186,7 +198,7 @@ int main()
         glStencilFunc(GL_ALWAYS, 1, 0xFF);
         glStencilMask(0xFF);
         // render the loaded model
-        glm::mat4 model = glm::mat4(1.0f);
+
         model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(0.05f));	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
@@ -207,14 +219,6 @@ int main()
         glEnable(GL_DEPTH_TEST); 
 
         shader.use();
-        shader.setMat4("projection", projection);
-        shader.setMat4("view", view);
-        glBindVertexArray(planeVAO);
-        glBindTexture(GL_TEXTURE_2D, floorTexture);
-        model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
         // vegetation
         glBindVertexArray(transparentVAO);
         glBindTexture(GL_TEXTURE_2D, transparentTexture);
