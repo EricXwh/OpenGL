@@ -18,7 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\16_Blending\main.cpp">
+    <ClCompile Include="src\17_FrameBuffers\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,6 +40,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\16_Blending\Shader\blendingFragment.glsl" />
+    <None Include="src\17_FrameBuffers\Shader\blendingFragment.glsl" />
+    <None Include="src\17_FrameBuffers\Shader\screenVertex.glsl" />
+    <None Include="src\17_FrameBuffers\Shader\screenFragment.glsl" />
   </ItemGroup>
 </Project>
