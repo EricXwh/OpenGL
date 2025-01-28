@@ -40,8 +40,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\17_FrameBuffers\Shader\blendingFragment.glsl" />
-    <None Include="src\17_FrameBuffers\Shader\screenVertex.glsl" />
-    <None Include="src\17_FrameBuffers\Shader\screenFragment.glsl" />
+    <None Include="src\17_FrameBuffers\Shader\outlineGeometry.glsl" />
   </ItemGroup>
 </Project>

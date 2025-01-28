@@ -30,7 +30,9 @@ bool firstMouse = true;
 // 时间
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
-
+// 光源旋转参数
+float lightRadius = 5.0f;    // 光源绕角色旋转的半径
+float lightSpeed = 1.0f;     // 光源旋转的速度（弧度/秒）
 int main()
 {
     // 初始化 GLFW
@@ -68,7 +70,7 @@ int main()
         return -1;
     }
 
-    //stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(true);
 
     // 配置全局 OpenGL 状态
     glEnable(GL_DEPTH_TEST);
@@ -78,18 +80,17 @@ int main()
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
 
 
     // 编译着色器
     Shader ourShader("./src/17_FrameBuffers/Shader/vertex.glsl", "./src/17_FrameBuffers/Shader/fragment.glsl");
-    Shader shaderSingleColor("./src/17_FrameBuffers/Shader/outlineVertex.glsl", "./src/17_FrameBuffers/Shader/outlineFragment.glsl");
+    Shader shaderSingleColor("./src/17_FrameBuffers/Shader/outlineVertex.glsl", "./src/17_FrameBuffers/Shader/outlineFragment.glsl","./src/17_FrameBuffers/Shader/outlineGeometry.glsl");
     Shader shader("./src/17_FrameBuffers/Shader/vertex.glsl", "./src/17_FrameBuffers/Shader/blendingFragment.glsl");
     Shader screenShader("./src/17_FrameBuffers/Shader/screenVertex.glsl", "./src/17_FrameBuffers/Shader/screenFragment.glsl");
     // 加载模型
-    //Model ourModel("asset/models/Kamisato/Kamisato_en.fbx");
-    Model ourModel("asset/models/Nilou/Nilou.pmx");
-
+    Model ourModel("asset/models/Nilou/Nilou.obj");
+    //Model ourModel("asset/models/Qiongxian/qiongxian.pmx");
     float planeVertices[] = {
         // positions          // texture Coords 
          5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
@@ -242,8 +243,32 @@ int main()
         shaderSingleColor.setMat4("projection", projection);
         shaderSingleColor.setMat4("view", view);
         ourShader.use();
+        ourShader.setVec3("viewPos", camera.Position);
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
+        // 设置光照相关 uniform  
+        // 计算光源的旋转角度
+        float angle = currentFrame * lightSpeed;
+
+        // 计算光源的当前位置（例如在 XZ 平面上旋转）
+        glm::vec3 lightPos;
+        lightPos.x = lightRadius * cos(angle);
+        lightPos.y = -1.0f; // 根据需要调整光源的高度
+        lightPos.z = lightRadius * sin(angle);
+
+        // 计算光照方向：从角色指向光源
+        glm::vec3 lightDir = glm::normalize(lightPos - glm::vec3(0.0f, -0.5f, 0.0f)); // 假设角色位于 (0, -0.5, 0)
+
+        ourShader.setVec3("lightDir", lightDir);
+        ourShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));      // 白光
+        ourShader.setVec3("ambientColor", glm::vec3(0.2f, 0.2f, 0.2f));    // 提高环境光
+
+        // 设置 Cel Shading 参数
+        ourShader.setInt("toonSteps", 3);        // 赛璐璐着色的阶段数
+        ourShader.setFloat("lightFactor", 0.5f); // 光照影响系数（0.0 ~ 1.0）
+
+        // 设置高光相关 uniform
+        ourShader.setFloat("time", currentFrame); // 动态时间
         // 1st. render pass, draw objects as normal, writing to the stencil buffer
         // --------------------------------------------------------------------
         glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -255,18 +280,21 @@ int main()
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
-        // 第二步：绘制轮廓
+        //// 第二步：绘制轮廓
         glStencilFunc(GL_NOTEQUAL, 1, 0xFF); // 仅绘制模板值不等于1的部分
         glStencilMask(0x00); // 禁止写入模板缓冲区
         //glDisable(GL_DEPTH_TEST); 
-        glDepthFunc(GL_ALWAYS);  // 强制通过深度测试
-        glDepthMask(GL_TRUE);    // 允许写入深度值
+        glDepthFunc(GL_ALWAYS);  
+        glDepthMask(GL_TRUE);    
+        glCullFace(GL_FRONT);
         shaderSingleColor.use();
+        shaderSingleColor.setFloat("outlineWidth", 0.0001f); // 调节轮廓线宽度
         glm::mat4 modelOutline = model;
         shaderSingleColor.setMat4("model", modelOutline);
         ourModel.Draw(shaderSingleColor);
-        glDepthFunc(GL_LESS);    // 恢复默认深度测试函数
-        glDepthMask(GL_TRUE);    // 保持深度写入开启
+        glCullFace(GL_BACK);
+        glDepthFunc(GL_LESS);    
+        glDepthMask(GL_TRUE);    
         glStencilMask(0xFF);
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glEnable(GL_DEPTH_TEST); 
