@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\OpenGL\glad.c" />
-    <ClCompile Include="src\17_FrameBuffers\main.cpp" />
+    <ClCompile Include="src\18_Skybox\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tool\camera.h" />
@@ -30,7 +30,8 @@
     <ClInclude Include="include\Tool\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\17_FrameBuffers\Shader\outlineGeometry.glsl" />
+    <None Include="src\18_Skybox\Shader\skyboxFragment.glsl" />
+    <None Include="src\18_Skybox\Shader\skyboxVertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
