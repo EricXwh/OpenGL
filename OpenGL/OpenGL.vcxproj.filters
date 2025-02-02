@@ -18,7 +18,7 @@
     <ClCompile Include="D:\OpenGL\glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\18_Skybox\main.cpp">
+    <ClCompile Include="src\19_AdvancedGLSL\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,9 +38,5 @@
     <ClInclude Include="include\Tool\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\18_Skybox\Shader\skyboxVertex.glsl" />
-    <None Include="src\18_Skybox\Shader\skyboxFragment.glsl" />
   </ItemGroup>
 </Project>
